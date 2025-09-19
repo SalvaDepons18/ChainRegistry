@@ -31,6 +31,7 @@ contract InstitutionRegistry is AccessControl {
     }
 
     function revokeIssuer(address account) external onlyRole(DEFAULT_ADMIN_ROLE){
+        if (account == address(0)) revert ZeroAddress();
         if(!hasRole(ISSUER_ROLE,account)) revert NotAnIssuer();
         _revokeRole(ISSUER_ROLE,account);
     }
